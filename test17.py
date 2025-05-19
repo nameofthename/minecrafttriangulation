@@ -1,0 +1,40 @@
+import sys
+print("'*' to start the program, 'q' to quit. To enter coordinates value, separate them with ' ' (space). For example of point (1,2) and (3,4) for Equation 01, enter: '1 2 3 4'")
+def triangulation():
+    while True:
+        try:
+            #for all z value, multiply with -1
+            slope1_values=list(map(int,input('x1: ,z1: ,x2: ,z2: ').split()))
+            m1=(slope1_values[3]*-1-slope1_values[1]*-1)/(slope1_values[2]-slope1_values[0])
+            slope2_values=list(map(int,input('x1: ,z1: ,x2: ,z2: ').split()))
+            m2=(slope2_values[3]*-1-slope2_values[1]*-1)/(slope2_values[2]-slope2_values[0])
+            if m1==m2:
+                print('No intersection, lines are parallel.')
+                continue
+            b1=slope1_values[1]*-1-slope1_values[0]*m1
+            b2=slope2_values[1]*-1-slope2_values[0]*m2
+            x_intercept=(b2-b1)/(m1-m2)
+            y_intercept=m1*x_intercept+b1
+            print(f'Intersection coordinate: ({x_intercept:.3f}, {-y_intercept:.3f})')
+        except ValueError:
+            print('Please enter integers only.')
+            continue
+        except ZeroDivisionError:
+            print('ZeroDivisionError, check inputs')
+            continue
+def main():
+    while True:
+        try:
+            prompt=str(input('>>> ')).lower()
+            if prompt=='*':
+                triangulation()
+            elif prompt=='q':
+                sys.exit()
+            else:
+                print('Command is not recognized')
+                continue
+        except ValueError:
+            print('Command is not recognized')
+            continue
+if __name__ == '__main__':
+    main()
